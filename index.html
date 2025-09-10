@@ -1,348 +1,578 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Cloud Transfer</title>
-    <style>
-        /* Estilos generales */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #0a0a1a;
-            color: #ffffff;
-            line-height: 1.6;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(10, 50, 100, 0.2) 0%, transparent 20%),
-                radial-gradient(circle at 90% 60%, rgba(100, 10, 80, 0.2) 0%, transparent 25%);
-        }
-        
-        /* Efectos de neón */
-        .neon-text {
-            color: #fff;
-            text-shadow: 
-                0 0 5px #fff,
-                0 0 10px #fff,
-                0 0 20px #ff00ff,
-                0 0 30px #ff00ff,
-                0 0 40px #ff00ff;
-        }
-        
-        .neon-border {
-            box-shadow: 
-                0 0 5px #fff,
-                0 0 10px #fff,
-                0 0 15px #ff00ff,
-                0 0 20px #ff00ff;
-            border: 2px solid #fff;
-            border-radius: 10px;
-        }
-        
-        .neon-button {
-            background-color: transparent;
-            color: #fff;
-            padding: 12px 30px;
-            border: 2px solid #fff;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 5px #fff;
-            box-shadow: 
-                0 0 5px #fff,
-                inset 0 0 5px #fff,
-                0 0 10px #ff00ff,
-                inset 0 0 10px #ff00ff;
-        }
-        
-        .neon-button:hover {
-            background-color: #ff00ff;
-            color: #0a0a1a;
-            box-shadow: 
-                0 0 10px #fff,
-                0 0 20px #ff00ff,
-                0 0 40px #ff00ff;
-        }
-        
-        /* Layout */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            padding: 40px 0;
-            text-align: center;
-        }
-        
-        .logo {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            letter-spacing: 3px;
-        }
-        
-        .tagline {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            color: #a0a0e0;
-        }
-        
-        section {
-            padding: 50px 0;
-            margin: 30px 0;
-        }
-        
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        h3 {
-            font-size: 1.8rem;
-            margin: 20px 0;
-            color: #a0a0e0;
-        }
-        
-        p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-        
-        /* Características */
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-        }
-        
-        .feature {
-            flex: 1;
-            min-width: 300px;
-            padding: 25px;
-            background: rgba(20, 20, 40, 0.6);
-            border-radius: 15px;
-            text-align: center;
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #ff00ff;
-        }
-        
-        /* Galería */
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .gallery-item {
-            flex: 1;
-            min-width: 300px;
-            max-width: 500px;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-        
-        .gallery-item img, .gallery-item video {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        
-        .gallery-item:hover img, .gallery-item:hover video {
-            transform: scale(1.05);
-        }
-        
-        /* Descargas */
-        .download-options {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 40px;
-        }
-        
-        .download-card {
-            background: rgba(20, 20, 40, 0.6);
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            min-width: 250px;
-        }
-        
-        .download-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: #00ffff;
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            margin-top: 50px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .social-link {
-            color: #fff;
-            font-size: 1.5rem;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .social-link:hover {
-            color: #ff00ff;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .logo {
-                font-size: 3rem;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
-            
-            .feature, .gallery-item, .download-card {
-                min-width: 100%;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neon Cloud Transfer — Landing</title>
+  <meta name="description" content="Neon Cloud Transfer: comparte archivos al instante con estilo neon. Descarga la app, mira videos y galería." />
+  <meta name="theme-color" content="#0ff" />
+
+  <style>
+    :root{
+      --bg:#0a0b10;
+      --panel:#0e1220;
+      --card:#0b0f1a;
+      --text:#e6f1ff;
+      --muted:#9fb3c8;
+      --primary:#00fff0;
+      --accent:#7c4dff;
+      --danger:#ff3b6b;
+      --success:#00ff9c;
+      --glow: 0 0 14px rgba(0,255,240,.6), 0 0 28px rgba(0,255,240,.25);
+      --glow-accent: 0 0 14px rgba(124,77,255,.6), 0 0 28px rgba(124,77,255,.25);
+      --radius:18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --grid-gap:22px;
+      --maxw:1200px;
+    }
+
+    /* Reset breve y tipografía */
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;line-height:1.4}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    svg{display:block}
+    ::selection{background:rgba(0,255,240,.25)}
+
+    /* Fondo animado sutil */
+    .bg-waves{
+      position:fixed;inset:0;z-index:-2;
+      background:
+        radial-gradient(60vw 60vw at 10% 20%, rgba(0,255,240,.12), transparent 60%),
+        radial-gradient(50vw 50vw at 90% 30%, rgba(124,77,255,.10), transparent 60%),
+        radial-gradient(70vw 70vw at 50% 90%, rgba(0,255,156,.10), transparent 60%),
+        linear-gradient(180deg, #07080e, #0a0b10 50%, #080910);
+      filter:saturate(110%);
+    }
+    .scanline{
+      position:fixed;inset:0;z-index:-1;pointer-events:none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.02), rgba(255,255,255,.02) 1px,
+        transparent 1px, transparent 3px
+      );
+      mix-blend-mode:screen;
+    }
+
+    /* Contenedor */
+    .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:28px}
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:20;
+      backdrop-filter:saturate(120%) blur(8px);
+      background:linear-gradient(180deg, rgba(10,11,16,.85), rgba(10,11,16,.55) 60%, transparent);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:14px;padding:14px 28px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.4px
+    }
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      background: radial-gradient(circle at 30% 30%, var(--primary), transparent 60%),
+                  radial-gradient(circle at 70% 70%, var(--accent), transparent 60%),
+                  #08101a;
+      box-shadow: var(--glow);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .nav a.link{
+      padding:8px 12px;border-radius:10px;color:var(--muted)
+    }
+    .nav a.link:hover{color:var(--text)}
+    .nav .cta{
+      padding:10px 16px;border-radius:12px;
+      background:linear-gradient(135deg, rgba(0,255,240,.12), rgba(124,77,255,.12));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: var(--glow-accent);
+    }
+
+    /* Hero */
+    .hero{
+      display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;
+      padding:48px 28px 18px;
+    }
+    .tag{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 10px;border-radius:999px;
+      background:linear-gradient(135deg, rgba(0,255,240,.10), rgba(124,77,255,.10));
+      border:1px solid rgba(255,255,255,.10);color:var(--muted);font-size:.9rem
+    }
+    h1{font-size:clamp(32px,6vw,56px);line-height:1.05;margin:14px 0 8px}
+    .lead{color:var(--muted);font-size:clamp(16px,2.6vw,18px);max-width:60ch}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:12px 18px;border-radius:14px;font-weight:600;
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(135deg, rgba(0,255,240,.14), rgba(124,77,255,.14));
+      box-shadow: var(--glow);
+    }
+    .btn.secondary{
+      background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow:none
+    }
+    .hero-card{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0) 30%),
+        radial-gradient(120% 100% at 100% 0, rgba(124,77,255,.18), transparent 60%),
+        var(--card);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--radius); padding:22px; box-shadow:var(--shadow);
+    }
+    .statgrid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px
+    }
+    .stat{
+      padding:12px;border-radius:14px;background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);text-align:center
+    }
+    .stat b{display:block;font-size:1.2rem}
+
+    /* Secciones */
+    section{padding:26px 28px}
+    .section-title{
+      font-size:1.6rem;margin:4px 0 14px;
+      text-shadow: 0 0 18px rgba(0,255,240,.35)
+    }
+    .grid{
+      display:grid;gap:var(--grid-gap);
+      grid-template-columns:repeat(12, 1fr);
+    }
+    .card{
+      grid-column: span 4;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), transparent),
+                  var(--panel);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;padding:18px;box-shadow:var(--shadow)
+    }
+    .card h3{margin:6px 0 6px}
+    .muted{color:var(--muted)}
+    .kpi{display:flex;align-items:center;gap:10px;margin:8px 0}
+    .kpi-dot{width:10px;height:10px;border-radius:50%;background:var(--primary);box-shadow:var(--glow)}
+
+    /* Descargas */
+    .downloads{
+      display:grid;gap:var(--grid-gap);grid-template-columns:repeat(12,1fr)
+    }
+    .dl-card{grid-column:span 6}
+    .dl-buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+
+    /* Galería (CSS lightbox con :target) */
+    .gallery, .videos{
+      display:grid;gap:var(--grid-gap);
+      grid-template-columns:repeat(12,1fr)
+    }
+    .thumb{
+      grid-column:span 3;position:relative;border-radius:14px;overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);cursor:pointer
+    }
+    .thumb:hover .thumb-overlay{opacity:1}
+    .thumb img, .thumb video{width:100%;height:180px;object-fit:cover}
+    .thumb-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.55));
+      display:flex;align-items:end;justify-content:space-between;
+      padding:12px;color:#fff;opacity:.0;transition:.25s
+    }
+    .pill{font-size:.78rem;padding:4px 8px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08)
+    }
+
+    /* Modal Lightbox (CSS puro) */
+    .modal{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+      padding:30px;background:rgba(0,0,0,.8);z-index:50
+    }
+    .modal:target{display:flex}
+    .modal .box{
+      width:min(100%, 960px);max-height:82vh;overflow:auto;
+      background:var(--card);border:1px solid rgba(255,255,255,.14);
+      border-radius:16px;box-shadow:var(--shadow)
+    }
+    .modal header{
+      position:sticky;top:0;background:rgba(10,12,20,.85);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:10px 14px;border-top-left-radius:16px;border-top-right-radius:16px
+    }
+    .modal .content{padding:12px}
+    .close{
+      display:inline-flex;align-items:center;justify-content:center;
+      width:34px;height:34px;border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05)
+    }
+
+    /* FAQ */
+    .faq{
+      display:grid;gap:var(--grid-gap);grid-template-columns:repeat(12,1fr)
+    }
+    .qa{grid-column:span 6;background:var(--panel);border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;padding:16px
+    }
+    .qa h4{margin:6px 0}
+
+    /* Footer */
+    footer{
+      padding:24px 28px;margin-top:24px;color:var(--muted);
+      border-top:1px dashed rgba(255,255,255,.08);
+      background:linear-gradient(180deg, transparent, rgba(0,0,0,.25))
+    }
+
+    /* Responsivo */
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr}
+      .card{grid-column:span 6}
+      .thumb{grid-column:span 6}
+      .dl-card{grid-column:span 12}
+      .qa{grid-column:span 12}
+      .statgrid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .card{grid-column:span 12}
+      .thumb{grid-column:span 12}
+      .actions{flex-direction:column;align-items:stretch}
+      .btn,.nav .cta{justify-content:center}
+    }
+
+    /* Sutilezas */
+    .shine{
+      position:relative;isolation:isolate;overflow:hidden
+    }
+    .shine::after{
+      content:"";position:absolute;inset:auto -40%;top:-120%;
+      height:200%;transform:rotate(25deg);
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      animation: shine 6s linear infinite
+    }
+    @keyframes shine{
+      0%{transform:translateX(-120%) rotate(25deg)}
+      100%{transform:translateX(120%) rotate(25deg)}
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1 class="logo neon-text">Neon Cloud Transfer</h1>
-            <p class="tagline">Transfiere archivos con estilo y velocidad</p>
-            <button class="neon-button">Descargar Ahora</button>
-        </header>
-        
-        <section id="about">
-            <h2 class="neon-text">¿Qué es Neon Cloud Transfer?</h2>
-            <p>Neon Cloud Transfer es una aplicación revolucionaria que te permite transferir archivos entre dispositivos de forma rápida, segura y con un estilo visual único inspirado en la estética neón.</p>
-            <p>Con una interfaz intuitiva y características avanzadas, nuestra aplicación hace que compartir archivos sea una experiencia visualmente impresionante.</p>
-        </section>
-        
-        <section id="features">
-            <h2 class="neon-text">Características Principales</h2>
-            <div class="features">
-                <div class="feature neon-border">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Transferencia Rápida</h3>
-                    <p>Transfiere archivos a velocidades sorprendentes gracias a nuestra tecnología de compresión optimizada.</p>
-                </div>
-                <div class="feature neon-border">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Seguridad Avanzada</h3>
-                    <p>Tus archivos están protegidos con encriptación de grado militar durante todo el proceso de transferencia.</p>
-                </div>
-                <div class="feature neon-border">
-                    <div class="feature-icon">🎨</div>
-                    <h3>Interfaz Neon</h3>
-                    <p>Disfruta de una experiencia visual única con efectos de neón y temas personalizables.</p>
-                </div>
-            </div>
-        </section>
-        
-        <section id="gallery">
-            <h2 class="neon-text">Galería Multimedia</h2>
-            <p>Descubre cómo funciona Neon Cloud Transfer a través de estas imágenes y videos demostrativos:</p>
-            
-            <div class="gallery">
-                <div class="gallery-item neon-border">
-                    <img src="https://placehold.co/600x400/3d1950/ffffff?text=Interfaz+Principal" alt="Interfaz principal de Neon Cloud Transfer">
-                </div>
-                <div class="gallery-item neon-border">
-                    <video controls poster="https://placehold.co/600x400/3d1950/ffffff?text=Video+Demostrativo">
-                        <source src="#" type="video/mp4">
-                        Tu navegador no soporta el elemento video.
-                    </video>
-                </div>
-                <div class="gallery-item neon-border">
-                    <img src="https://placehold.co/600x400/3d1950/ffffff?text=Transferencia+en+Progreso" alt="Proceso de transferencia de archivos">
-                </div>
-                <div class="gallery-item neon-border">
-                    <video controls poster="https://placehold.co/600x400/3d1950/ffffff?text=Configuración">
-                        <source src="#" type="video/mp4">
-                        Tu navegador no soporta el elemento video.
-                    </video>
-                </div>
-            </div>
-        </section>
-        
-        <section id="download">
-            <h2 class="neon-text">Descarga la Aplicación</h2>
-            <p>Consigue Neon Cloud Transfer para tu sistema operativo y comienza a transferir archivos con estilo.</p>
-            
-            <div class="download-options">
-                <div class="download-card neon-border">
-                    <div class="download-icon">💻</div>
-                    <h3>Windows</h3>
-                    <p>Versión 2.1.3 | 45 MB</p>
-                    <button class="neon-button">Descargar</button>
-                </div>
-                <div class="download-card neon-border">
-                    <div class="download-icon">🍎</div>
-                    <h3>macOS</h3>
-                    <p>Versión 2.1.3 | 52 MB</p>
-                    <button class="neon-button">Descargar</button>
-                </div>
-                <div class="download-card neon-border">
-                    <div class="download-icon">🐧</div>
-                    <h3>Linux</h3>
-                    <p>Versión 2.1.3 | 48 MB</p>
-                    <button class="neon-button">Descargar</button>
-                </div>
-            </div>
-        </section>
-        
-        <footer>
-            <p>© 2023 Neon Cloud Transfer. Todos los derechos reservados.</p>
-            <div class="social-links">
-                <a href="#" class="social-link">📱</a>
-                <a href="#" class="social-link">📷</a>
-                <a href="#" class="social-link">🐦</a>
-                <a href="#" class="social-link">💻</a>
-            </div>
-            <p>Contacto: info@neoncloudtransfer.com</p>
-        </footer>
-    </div>
+  <div class="bg-waves"></div>
+  <div class="scanline"></div>
 
-    <script>
-        // Script simple para el funcionamiento de los botones de descarga
-        document.addEventListener('DOMContentLoaded', function() {
-            const downloadButtons = document.querySelectorAll('.neon-button');
-            
-            downloadButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    alert('¡Gracias por tu interés en Neon Cloud Transfer! En una implementación real, esta descarga comenzaría ahora.');
-                });
-            });
-        });
-    </script>
+  <!-- HEADER -->
+  <header>
+    <nav class="nav wrap" aria-label="Principal">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>Neon Cloud Transfer</span>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <a class="link" href="#features">Características</a>
+        <a class="link" href="#descargas">Descarga</a>
+        <a class="link" href="#galeria">Galería</a>
+        <a class="link" href="#videos">Videos</a>
+        <a class="cta" href="#descargas">Obtener App</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <span class="tag">Rápido • Privado • Neon UX</span>
+        <h1>Comparte archivos a la velocidad de tus ideas</h1>
+        <p class="lead">
+          Neon Cloud Transfer es tu puente ultrarápido para enviar y recibir archivos sin fricción. Diseño neon,
+          feedback visual preciso y un flujo pensado para que nada bloquee tu ritmo.
+        </p>
+        <div class="actions">
+          <a class="btn shine" href="https://tu-dominio.com/descargas/NeonCloudTransfer.apk" download>
+            <!-- APK icono simple -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3v12m0 0-4-4m4 4 4-4M4 18h16" stroke="cyan" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Descargar APK
+          </a>
+          <a class="btn secondary" href="https://play.google.com/store/apps/details?id=tu.paquete" target="_blank" rel="noopener">
+            <!-- Play icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 3l14 9-14 9V3z" fill="#7c4dff"/>
+            </svg>
+            Play Store
+          </a>
+        </div>
+
+        <div class="statgrid">
+          <div class="stat"><b>+10 MB/s</b><span class="muted">Transfer local</span></div>
+          <div class="stat"><b>0 configs</b><span class="muted">Plug & Play</span></div>
+          <div class="stat"><b>Neon UI</b><span class="muted">Feedback visual</span></div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="kpi"><span class="kpi-dot"></span><span class="muted">Envío cifrado punto a punto</span></div>
+        <div class="kpi"><span class="kpi-dot" style="background:var(--accent);box-shadow:var(--glow-accent)"></span><span class="muted">Reanudación inteligente</span></div>
+        <div class="kpi"><span class="kpi-dot" style="background:var(--success);box-shadow:0 0 14px rgba(0,255,156,.6)"></span><span class="muted">Sin cuentas, sin fricción</span></div>
+        <div style="margin-top:14px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08)">
+          <!-- Mock UI card -->
+          <img src="https://picsum.photos/1200/600?random=32" alt="Previsualización de la interfaz Neon Cloud Transfer" />
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features">
+      <h2 class="section-title">Características clave</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Velocidad real</h3>
+          <p class="muted">Optimizado para redes locales y envíos directos con control total del progreso.</p>
+        </article>
+        <article class="card">
+          <h3>Privacidad primero</h3>
+          <p class="muted">Compartí sin exponer tus datos. Sesiones efímeras y claves únicas por transferencia.</p>
+        </article>
+        <article class="card">
+          <h3>UX neon</h3>
+          <p class="muted">Indicadores claros, animaciones sobrias, estados visibles. Nada de sorpresas.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- DESCARGAS -->
+    <section id="descargas">
+      <h2 class="section-title">Descarga la app</h2>
+      <div class="downloads">
+        <div class="card dl-card">
+          <h3>Android (APK)</h3>
+          <p class="muted">Instala el APK directamente. Habilita orígenes desconocidos si es necesario.</p>
+          <div class="dl-buttons">
+            <a class="btn" href="https://tu-dominio.com/descargas/NeonCloudTransfer.apk" download>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3v12m0 0-4-4m4 4 4-4M4 18h16" stroke="cyan" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Descargar APK
+            </a>
+            <a class="btn secondary" href="#changelog">Ver cambios</a>
+          </div>
+        </div>
+        <div class="card dl-card">
+          <h3>Play Store</h3>
+          <p class="muted">Actualizaciones automáticas y verificación de integridad desde Google Play.</p>
+          <div class="dl-buttons">
+            <a class="btn" href="https://play.google.com/store/apps/details?id=tu.paquete" target="_blank" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 3l14 9-14 9V3z" fill="#7c4dff"/>
+              </svg>
+              Abrir en Play
+            </a>
+            <a class="btn secondary" href="#instrucciones">Cómo instalar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section id="galeria">
+      <h2 class="section-title">Galería</h2>
+      <div class="gallery">
+        <!-- Reemplaza los src por tus imágenes -->
+        <a class="thumb" href="#img1">
+          <img src="https://picsum.photos/800/450?random=11" alt="Captura 1 de la app" />
+          <div class="thumb-overlay"><span>Captura 1</span><span class="pill">UI</span></div>
+        </a>
+        <a class="thumb" href="#img2">
+          <img src="https://picsum.photos/800/450?random=12" alt="Captura 2 de la app" />
+          <div class="thumb-overlay"><span>Captura 2</span><span class="pill">Transfer</span></div>
+        </a>
+        <a class="thumb" href="#img3">
+          <img src="https://picsum.photos/800/450?random=13" alt="Captura 3 de la app" />
+          <div class="thumb-overlay"><span>Captura 3</span><span class="pill">Historial</span></div>
+        </a>
+        <a class="thumb" href="#img4">
+          <img src="https://picsum.photos/800/450?random=14" alt="Captura 4 de la app" />
+          <div class="thumb-overlay"><span>Captura 4</span><span class="pill">Ajustes</span></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section id="videos">
+      <h2 class="section-title">Videos de muestra</h2>
+      <div class="videos">
+        <!-- Miniaturas que abren modales CSS -->
+        <a class="thumb" href="#vid1">
+          <img src="https://picsum.photos/800/450?random=21" alt="Video 1: Envío de archivos" />
+          <div class="thumb-overlay"><span>Envío de archivos</span><span class="pill">Demo</span></div>
+        </a>
+        <a class="thumb" href="#vid2">
+          <img src="https://picsum.photos/800/450?random=22" alt="Video 2: Recepción instantánea" />
+          <div class="thumb-overlay"><span>Recepción instantánea</span><span class="pill">Demo</span></div>
+        </a>
+        <a class="thumb" href="#vid3">
+          <img src="https://picsum.photos/800/450?random=23" alt="Video 3: Configuración 0 fricción" />
+          <div class="thumb-overlay"><span>0 fricción</span><span class="pill">Tip</span></div>
+        </a>
+        <a class="thumb" href="#vid4">
+          <img src="https://picsum.photos/800/450?random=24" alt="Video 4: UI Neon" />
+          <div class="thumb-overlay"><span>UI Neon</span><span class="pill">Showcase</span></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- INSTRUCCIONES -->
+    <section id="instrucciones">
+      <h2 class="section-title">Cómo instalar</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Instalar APK</h3>
+          <p class="muted">1) Descarga el APK. 2) Abre el archivo. 3) Permite “instalar apps desconocidas”. 4) Listo.</p>
+        </article>
+        <article class="card">
+          <h3>Actualizaciones</h3>
+          <p class="muted">Si instalas desde Play Store, recibirás actualizaciones automáticas sin pasos extra.</p>
+        </article>
+        <article class="card">
+          <h3>Compatibilidad</h3>
+          <p class="muted">Android 7.0+ recomendado. Soporte para arquitectura ARM y x86 según build.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CHANGELOG -->
+    <section id="changelog">
+      <h2 class="section-title">Novedades</h2>
+      <div class="grid">
+        <article class="card" style="grid-column:span 12">
+          <h3>v1.0.0</h3>
+          <ul class="muted">
+            <li>Transferencia local acelerada con reintentos.</li>
+            <li>UI con indicadores de progreso y estados claros.</li>
+            <li>Modo neon y esquema oscuro optimizado.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODALES GALERÍA -->
+  <div id="img1" class="modal" aria-modal="true" role="dialog">
+    <div class="box">
+      <header>
+        <strong>Captura 1</strong>
+        <a class="close" href="#galeria" aria-label="Cerrar">✕</a>
+      </header>
+      <div class="content">
+        <img src="https://picsum.photos/1600/900?random=111" alt="Captura 1 ampliada" />
+      </div>
+    </div>
+  </div>
+  <div id="img2" class="modal" aria-modal="true" role="dialog">
+    <div class="box">
+      <header>
+        <strong>Captura 2</strong>
+        <a class="close" href="#galeria" aria-label="Cerrar">✕</a>
+      </header>
+      <div class="content">
+        <img src="https://picsum.photos/1600/900?random=112" alt="Captura 2 ampliada" />
+      </div>
+    </div>
+  </div>
+  <div id="img3" class="modal" aria-modal="true" role="dialog">
+    <div class="box">
+      <header>
+        <strong>Captura 3</strong>
+        <a class="close" href="#galeria" aria-label="Cerrar">✕</a>
+      </header>
+      <div class="content">
+        <img src="https://picsum.photos/1600/900?random=113" alt="Captura 3 ampliada" />
+      </div>
+    </div>
+  </div>
+  <div id="img4" class="modal" aria-modal="true" role="dialog">
+    <div class="box">
+      <header>
+        <strong>Captura 4</strong>
+        <a class="close" href="#galeria" aria-label="Cerrar">✕</a>
+      </header>
+      <div class="content">
+        <img src="https://picsum.photos/1600/900?random=114" alt="Captura 4 ampliada" />
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALES VIDEOS (usa tus fuentes .mp4/.webm) -->
+  <div id="vid1" class="modal" aria-modal="true" role="dialog">
+    <div class="box">
+      <header>
+        <strong>Demo: Envío de archivos</strong>
+        <a class="close" href="#videos" aria-label="Cerrar">✕</a>
+      </header>
+      <div class="content">
+        <video src="https://cdn.coverr.co/videos/coverr-sharing-files-1234/1080p.mp4" controls playsinline style="width:100%;height:auto;border-radius:12px"></video>
+      </div>
+    </div>
+  </div>
+  <div id="vid2" class="modal" aria-modal="true" role="dialog">
+    <div class="box">
+      <header>
+        <strong>Demo: Recepción instantánea</strong>
+        <a class="close" href="#videos" aria-label="Cerrar">✕</a>
+      </header>
+      <div class="content">
+        <video src="https://cdn.coverr.co/videos/coverr-file-received-5678/1080p.mp4" controls playsinline style="width:100%;height:auto;border-radius:12px"></video>
+      </div>
+    </div>
+  </div>
+  <div id="vid3" class="modal" aria-modal="true" role="dialog">
+    <div class="box">
+      <header>
+        <strong>Tip: Cero fricción</strong>
+        <a class="close" href="#videos" aria-label="Cerrar">✕</a>
+      </header>
+      <div class="content">
+        <video src="https://cdn.coverr.co/videos/coverr-one-tap-4321/1080p.mp4" controls playsinline style="width:100%;height:auto;border-radius:12px"></video>
+      </div>
+    </div>
+  </div>
+  <div id="vid4" class="modal" aria-modal="true" role="dialog">
+    <div class="box">
+      <header>
+        <strong>Showcase: UI Neon</strong>
+        <a class="close" href="#videos" aria-label="Cerrar">✕</a>
+      </header>
+      <div class="content">
+        <video src="https://cdn.coverr.co/videos/coverr-neon-ui-2468/1080p.mp4" controls playsinline style="width:100%;height:auto;border-radius:12px"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="wrap" style="padding-top:8px">
+    <div class="faq">
+      <div class="qa">
+        <h4>¿La app necesita internet?</h4>
+        <p class="muted">Para transferencias locales no. Para compartir a través de la nube, sí, con cifrado y enlaces temporales.</p>
+      </div>
+      <div class="qa">
+        <h4>¿Qué tamaño máximo de archivo admite?</h4>
+        <p class="muted">No imponemos límites internos. El límite real dependerá del almacenamiento y red disponibles.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap" style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap">
+      <span>© <span id="y">2025</span> Neon Cloud Transfer</span>
+      <span class="muted">Hecho con cariño neon. <a href="#descargas">Descargar</a></span>
+    </div>
+  </footer>
+
+  <!-- Script mínimo para año actual (opcional, todo inline) -->
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
